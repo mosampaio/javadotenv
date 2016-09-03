@@ -11,9 +11,11 @@ public final class Dotenv {
     private static Logger LOGGER = LoggerFactory.getLogger(Dotenv.class);
 
     private String resource;
+    private boolean silent;
 
-    private Dotenv(String resource) {
+    private Dotenv(String resource, boolean silent) {
         this.resource = resource;
+        this.silent = silent;
     }
 
     public void load() {
@@ -21,7 +23,9 @@ public final class Dotenv {
             Properties prop = new Properties();
             InputStream inputStream = Dotenv.class.getClassLoader().getResourceAsStream(resource);
             if (inputStream == null) {
-                LOGGER.warn("It was not possible to load properties from \"{}\" - resource not found.", resource);
+                if (!silent) {
+                    LOGGER.warn("It was not possible to load properties from \"{}\" - resource not found.", resource);
+                }
             } else {
                 prop.load(inputStream);
                 for (Map.Entry entry : prop.entrySet()) {
@@ -37,14 +41,20 @@ public final class Dotenv {
 
     public static class Builder {
         private String resource = ".env";
+        private boolean silent = false;
 
         public Builder resource(String resource) {
             this.resource = resource;
             return this;
         }
 
+        public Builder silent(boolean silent) {
+            this.silent = silent;
+            return this;
+        }
+
         public Dotenv build() {
-            return new Dotenv(resource);
+            return new Dotenv(resource, silent);
         }
 
     }

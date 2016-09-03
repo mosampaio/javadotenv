@@ -37,6 +37,11 @@ public class DotenvTest {
 
     @Test
     public void shouldNotFailIfResourceIsNotFound() {
-        new Dotenv.Builder().resource(".env.notexistent").build().load();
+        new Dotenv.Builder().resource(".notexistent").build().load();
+    }
+
+    @Test
+    public void shouldNotShowWarnIfResourceIsNotFoundAndSilentIsTrue() {
+        new Dotenv.Builder().silent(true).resource(".nonexistent").build().load();
     }
 }
