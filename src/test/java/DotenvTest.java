@@ -1,6 +1,7 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
@@ -43,5 +44,12 @@ public class DotenvTest {
     @Test
     public void shouldNotShowWarnIfResourceIsNotFoundAndSilentIsTrue() {
         new Dotenv.Builder().silent(true).resource(".nonexistent").build().load();
+    }
+
+    @Test
+    public void shouldIgnoreCommentedLines() {
+        new Dotenv.Builder().build().load();
+
+        assertThat(System.getProperty("BRA"), is(nullValue()));
     }
 }
