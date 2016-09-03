@@ -6,10 +6,10 @@ public final class Dotenv {
 
     private Dotenv() { }
 
-    public static void load() {
+    public static void load(String resource) {
         try {
             Properties prop = new Properties();
-            prop.load(Dotenv.class.getClassLoader().getResourceAsStream(".env"));
+            prop.load(Dotenv.class.getClassLoader().getResourceAsStream(resource));
             for (Map.Entry entry: prop.entrySet()) {
                 if (System.getProperty(entry.getKey().toString()) == null) {
                     System.setProperty(entry.getKey().toString(), entry.getValue().toString());
@@ -20,4 +20,7 @@ public final class Dotenv {
         }
     }
 
+    public static void load() {
+        load(".env");
+    }
 }

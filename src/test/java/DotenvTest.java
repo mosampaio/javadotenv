@@ -27,4 +27,10 @@ public class DotenvTest {
         assertThat(System.getProperty("TEST"), is("54321"));
     }
 
+    @Test
+    public void getPropertyTestShouldReturn99999WhenItLoadADifferentResource() {
+        Dotenv.load(".env.other");
+
+        assertThat(System.getProperty("TEST"), is("99999"));
+    }
 }
