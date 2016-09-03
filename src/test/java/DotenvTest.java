@@ -13,7 +13,7 @@ public class DotenvTest {
 
     @Test
     public void getPropertyTestShouldReturn12345() {
-        Dotenv.load();
+        new Dotenv.Builder().build().load();
 
         assertThat(System.getProperty("TEST"), is("12345"));
     }
@@ -22,20 +22,21 @@ public class DotenvTest {
     public void getPropertyTestShouldReturn54321WhenPropertyHasBeenAlreadySet() {
         System.setProperty("TEST", "54321");
 
-        Dotenv.load();
+        new Dotenv.Builder().build().load();
+
 
         assertThat(System.getProperty("TEST"), is("54321"));
     }
 
     @Test
     public void getPropertyTestShouldReturn99999WhenItLoadADifferentResource() {
-        Dotenv.load(".env.other");
+        new Dotenv.Builder().resource(".env.other").build().load();
 
         assertThat(System.getProperty("TEST"), is("99999"));
     }
 
     @Test
     public void shouldNotFailIfResourceIsNotFound() {
-        Dotenv.load(".env.notexistent");
+        new Dotenv.Builder().resource(".env.notexistent").build().load();
     }
 }

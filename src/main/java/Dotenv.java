@@ -10,9 +10,13 @@ public final class Dotenv {
 
     private static Logger LOGGER = LoggerFactory.getLogger(Dotenv.class);
 
-    private Dotenv() { }
+    private String resource;
 
-    public static void load(String resource) {
+    private Dotenv(String resource) {
+        this.resource = resource;
+    }
+
+    public void load() {
         try {
             Properties prop = new Properties();
             InputStream inputStream = Dotenv.class.getClassLoader().getResourceAsStream(resource);
@@ -31,7 +35,18 @@ public final class Dotenv {
         }
     }
 
-    public static void load() {
-        load(".env");
+    public static class Builder {
+        private String resource = ".env";
+
+        public Builder resource(String resource) {
+            this.resource = resource;
+            return this;
+        }
+
+        public Dotenv build() {
+            return new Dotenv(resource);
+        }
+
     }
+
 }
