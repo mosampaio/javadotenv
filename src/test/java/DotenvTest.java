@@ -33,4 +33,9 @@ public class DotenvTest {
 
         assertThat(System.getProperty("TEST"), is("99999"));
     }
+
+    @Test
+    public void shouldNotFailIfResourceIsNotFound() {
+        Dotenv.load(".env.notexistent");
+    }
 }
