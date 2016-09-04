@@ -1,5 +1,8 @@
 # javadotenv
 
+[![Build Status](https://travis-ci.org/mosampaio/javadotenv.svg?branch=master)](https://travis-ci.org/mosampaio/javadotenv)
+
+
 Just loads your environment variables from your .env file.
 
 Javadotenv was inspired on [dotenv for Node.js](https://github.com/motdotla/dotenv) and [dotenv for Ruby](https://github.com/bkeepers/dotenv).
