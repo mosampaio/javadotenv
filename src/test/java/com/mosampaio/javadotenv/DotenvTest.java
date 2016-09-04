@@ -13,7 +13,7 @@ public class DotenvTest {
 
     @Before
     public void setUp() {
-        EnvironmentVariablesUtil.setEnv(new HashMap<>());
+        EnvironmentVariablesUtil.setEnv(new HashMap<String, String>());
     }
 
     @Test
