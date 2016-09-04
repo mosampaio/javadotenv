@@ -1,8 +1,11 @@
+package com.mosampaio.javadotenv;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Properties;
 
@@ -18,6 +21,9 @@ public final class Dotenv {
         this.silent = silent;
     }
 
+    /**
+     * It load the env vars accordingly.
+     */
     public void load() {
         try {
             Properties prop = new Properties();
@@ -28,11 +34,14 @@ public final class Dotenv {
                 }
             } else {
                 prop.load(inputStream);
+                Map<String, String> map = new LinkedHashMap<>();
+                map.putAll(System.getenv());
                 for (Map.Entry entry : prop.entrySet()) {
-                    if (System.getProperty(entry.getKey().toString()) == null) {
-                        System.setProperty(entry.getKey().toString(), entry.getValue().toString());
+                    if (map.get(entry.getKey().toString()) == null) {
+                        map.put(entry.getKey().toString(), entry.getValue().toString());
                     }
                 }
+                EnvironmentVariablesUtil.setEnv(map);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -43,16 +52,32 @@ public final class Dotenv {
         private String resource = ".env";
         private boolean silent = false;
 
+        /**
+         * Define the resource file which contains the env vars.
+         * Default: .env
+         * @param resource
+         * @return com.mosampaio.javadotenv.Dotenv.Builder
+         */
         public Builder resource(String resource) {
             this.resource = resource;
             return this;
         }
 
+        /**
+         * Shows a warning message if the file does not exists. Mark as true if you want to ignore this message.
+         * Default: false
+         * @param silent
+         * @return com.mosampaio.javadotenv.Dotenv.Builder
+         */
         public Builder silent(boolean silent) {
             this.silent = silent;
             return this;
         }
 
+        /**
+         * Return the com.mosampaio.javadotenv.Dotenv instance
+         * @return com.mosampaio.javadotenv.Dotenv
+         */
         public Dotenv build() {
             return new Dotenv(resource, silent);
         }
