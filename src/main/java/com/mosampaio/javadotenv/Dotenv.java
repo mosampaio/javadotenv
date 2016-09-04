@@ -34,7 +34,7 @@ public final class Dotenv {
                 }
             } else {
                 prop.load(inputStream);
-                Map<String, String> map = new LinkedHashMap<>();
+                Map<String, String> map = new LinkedHashMap<String, String>();
                 map.putAll(System.getenv());
                 String key;
                 for (Map.Entry entry : prop.entrySet()) {
