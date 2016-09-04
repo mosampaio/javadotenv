@@ -1,6 +1,10 @@
 # javadotenv
 
-Javadotenv is a Java version of dotenv and was inpired on [dotenv for Node.js](https://github.com/motdotla/dotenv) and [dotenv for Ruby](https://github.com/bkeepers/dotenv). It works with Java 6+ versions and its only dependency is Sl4j.
+Just loads your environment variables from your .env file.
+
+Javadotenv was inspired on [dotenv for Node.js](https://github.com/motdotla/dotenv) and [dotenv for Ruby](https://github.com/bkeepers/dotenv).
+
+It works with Java 6+ versions and its only dependency is Sl4j.
 
 Not separating config from code is a violation of [The Twelve-Factor App](http://12factor.net/config) methodology.
 
