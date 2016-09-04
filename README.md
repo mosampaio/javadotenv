@@ -73,7 +73,7 @@ package com.myapp.listener;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-public class MyAppServletContextListener implements ServletContextListener {
+public class DotenvContextListener implements ServletContextListener {
 
   @Override
   public void contextInitialized(ServletContextEvent arg0) {
