@@ -36,9 +36,14 @@ public final class Dotenv {
                 prop.load(inputStream);
                 Map<String, String> map = new LinkedHashMap<>();
                 map.putAll(System.getenv());
+                String key;
                 for (Map.Entry entry : prop.entrySet()) {
-                    if (map.get(entry.getKey().toString()) == null) {
-                        map.put(entry.getKey().toString(), entry.getValue().toString());
+                    key = entry.getKey().toString();
+                    if (map.get(key) == null) {
+                        LOGGER.info("Loading env var {} from {}.", key, resource);
+                        map.put(key, entry.getValue().toString());
+                    } else {
+                        LOGGER.warn("Env var {} is already set.", key);
                     }
                 }
                 EnvironmentVariablesUtil.setEnv(map);
